@@ -21,13 +21,13 @@ $(function()
 
 /******************FONCTION D'AFFICHAGE AU CLICK*******************/
 
-		$("#right_column ul > li").click(function(e)
+		$("#right_column ul > li").click(function(e) //fonction au click
 		{
 			e.preventDefault();
-			var idUser = $(this).attr("id");
-			idUser=idUser.split("-");
+			var idUser = $(this).attr("id"); //récupération de l'id 
+			idUser=idUser.split("-"); //séparation des valeurs au niveau du "-"
 
-			var request = $.ajax(
+			var request = $.ajax( //création de la requête ajax
 			{
 				url:"http://localhost/tp_ajax/api/location.php",
 				method:"GET",
@@ -35,13 +35,13 @@ $(function()
 				dataType:"json"
 			});
 
-			request.done(function(datalocation)
+			request.done(function(datalocation) //récupération des informations dans la BDD pour l'affichage dans les champs du formulaire
 			{
 				$("#marque").val(datalocation[0].marque);
 				$('#modele').val(datalocation[0].modele);
 				$('#annee').val(datalocation[0].annee);
 				$('#couleur').val(datalocation[0].couleur);
-				$('#image').append('<img src='+datalocation[0].image+'>');
+				$('#image').append('<img src="'+datalocation[0].image+'">'); //ajout de l'image sous l'input #image (dans le html)
 				$("#id_location").val(datalocation[0].id_location);
 			});
 
@@ -71,35 +71,41 @@ $(function()
 			request.done(function(data2)
 			{
 				$("#message_ajax").html("<div class='alert alert-success'><strong>Success!</strong> Voiture bien intégré !");
+				//message d'alerte Success
 				//console.log("User register");
 			});
 
 			request.fail(function( jqXHR, textStatus ) 
 			{
  	 			$("#message_ajax").html("<div class='alert alert-danger'><strong>Error! </strong> Voiture non intégré !");
+				//message d'alerte Error
 			});
 	});
 
 /****************FONCTION DELETE *******************************/
 
 		$("#deletevoiture").click(function(e)
-	{
-		e.preventDefault();
+		{
+			e.preventDefault();
 		//console.log("test");
-		var request = $.ajax(
-		{
-			url:"http://localhost/tp_ajax/api/location.php",
-			method: "POST",
-			data : {id : $("#id_location").val()}
-		});
-		request.done(function(data2)
-		{
-			$("#message_ajax").html("<div class='alert-success'><strong>Success! </strong> Voiture bien supprimé !");
-		});
-		request.fail(function( jqXHR, textStatus ) 
-		{
- 	 		$("#message_ajax").html("<div class='alert-danger'><strong>Error! </strong> Voiture non supprimé !");
-		});
-	})
+			var request = $.ajax(
+			{
+				url:"http://localhost/tp_ajax/api/location.php",
+				method: "POST",
+				data : {id : $("#id_location").val()}
+			});
+			
+			request.done(function(data2)
+			{
+				$("#message_ajax").html("<div class='alert-success'><strong>Success! </strong> Voiture bien supprimé !");
+				//message d'alerte Success
+			});
+			
+			request.fail(function( jqXHR, textStatus ) 
+			{
+ 	 			$("#message_ajax").html("<div class='alert-danger'><strong>Error! </strong> Voiture non supprimé !");
+				//message d'alerte Error
+			});
+		})
 
 });
