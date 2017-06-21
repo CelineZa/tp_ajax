@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	if(!empty($_POST))
 	{
-		if(isset($_POST['id_location'])) // Si on envoie un id, on fait la requête de suppression.
+		if(!empty($_POST['id_location'])) // Si on envoie un id, on fait la requête de suppression.
 		{
 			$req = $bdd->prepare("DELETE FROM location WHERE id_location = :id_location");
 			$req->bindParam(':id_location', $_POST['id_location']);
@@ -27,10 +27,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			$req->bindParam(':modele', $_POST['modele'], PDO::PARAM_STR);
 			$req->bindParam(':annee', $_POST['annee'], PDO::PARAM_INT);
 			$req->bindParam(':couleur', $_POST['couleur'], PDO::PARAM_STR);
-			$req->bindParam(':image', $_POST['image'], PDO::PARAM_STR);
+			$req->bindParam(':image', $_POST['url'], PDO::PARAM_STR);
 		}
 
 		$req->execute();	
+		var_dump($_POST);
 	}		
 }
 elseif($_SERVER['REQUEST_METHOD'] == 'GET')
