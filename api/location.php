@@ -37,11 +37,11 @@ elseif($_SERVER['REQUEST_METHOD'] == 'GET')
 {
 	if(empty($_GET))
 	{
-		$req = $dbh->prepare("SELECT * FROM location");
+		$req = $bdd->prepare("SELECT * FROM location");
 	}
 	else
 	{
-		$req = $dbh->prepare("SELECT * FROM location WHERE id_location = " . $_GET['id_location']);
+		$req = $bdd->prepare("SELECT * FROM location WHERE id_location = " . $_GET['id_location']);
 	}
 
 	$req->execute();
