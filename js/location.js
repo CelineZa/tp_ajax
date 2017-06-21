@@ -31,7 +31,7 @@ $(function()
 			{
 				url:"http://localhost/tp_ajax/api/location.php",
 				method:"GET",
-				data:(id_location : idUser[1]),
+				data:{id_location : idUser[1]},
 				dataType:"json"
 			});
 
