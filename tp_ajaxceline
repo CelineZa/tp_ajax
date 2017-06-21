@@ -1,0 +1,8 @@
+- Ajouter un formulaire :
+	Marque
+	Modèle
+	Année
+	Image
+- Créer BDD.
+- Créer API.
+- Afficher la liste des véhicules présents dans la BDD dans la liste déroulante.
