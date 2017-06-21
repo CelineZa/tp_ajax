@@ -1,3 +1,5 @@
+/*********************CREATION DE LA LISTE DES VOITURES*******************/
+
 $(function()
 {
 	var request = $.ajax(
@@ -17,7 +19,7 @@ $(function()
 		$("#right_column ul").html(content);
 
 
-/******************FONCTION AU CLICK*******************/
+/******************FONCTION D'AFFICHAGE AU CLICK*******************/
 
 		$("#right_column ul > li").click(function(e)
 		{
@@ -45,5 +47,59 @@ $(function()
 
 		});
 	});
+	request.fail(function( jqXHR, textStatus ) 
+	{
+ 	 	alert( "Request failed: " + textStatus );
+	});
+
+
+/*******************SUBMIT DU FORMULAIRE**********************/
+
+
+	$('form').submit(function(e) 
+	{
+			e.preventDefault();
+			//console.log($(this).attr("id"));
+			
+			var request = $.ajax(
+			{
+				url:"http://localhost/tp_ajax/api/location.php",
+				method: "POST",
+				data : $('form').serialize() //permet de récupérer les données des input en chaine de caractère
+			});
+
+			request.done(function(data2)
+			{
+				$("#message_ajax").html("<div class='alert alert-success'><strong>Success!</strong> Voiture bien intégré !");
+				//console.log("User register");
+			});
+
+			request.fail(function( jqXHR, textStatus ) 
+			{
+ 	 			$("#message_ajax").html("<div class='alert alert-danger'><strong>Error! </strong> Voiture non intégré !");
+			});
+	});
+
+/****************FONCTION DELETE *******************************/
+
+		$("#deletevoiture").click(function(e)
+	{
+		e.preventDefault();
+		//console.log("test");
+		var request = $.ajax(
+		{
+			url:"http://localhost/tp_ajax/api/location.php",
+			method: "POST",
+			data : {id : $("#id_location").val()}
+		});
+		request.done(function(data2)
+		{
+			$("#message_ajax").html("<div class='alert-success'><strong>Success! </strong> Voiture bien supprimé !");
+		});
+		request.fail(function( jqXHR, textStatus ) 
+		{
+ 	 		$("#message_ajax").html("<div class='alert-danger'><strong>Error! </strong> Voiture non supprimé !");
+		});
+	})
 
 });
